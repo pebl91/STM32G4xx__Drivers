@@ -16,7 +16,6 @@
  ******************************************************************************
  */
 
-#include "stm32g491xx.h"
 #include <stdint.h>
 
 #if !defined(__SOFT_FP__) && defined(__ARM_FP)
