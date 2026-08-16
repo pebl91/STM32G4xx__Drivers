@@ -23,31 +23,53 @@ The main goal of this project is to learn STM32 embedded programming and underst
 
 ```text
 stm32g4xx_drivers/
+├── drivers
+|   ├── Inc/
+|   |    ├── stm32g491xx.h
+│   |    ├── stm32g491xx_gpio_driver.h
+│   |    ├── stm32g491xx_uart_driver.h
+│   |    ├── stm32g491xx_spi_driver.h
+│   |    └── stm32g491xx_i2c_driver.h
+│   |
+|   ├── Src/
+│        ├── stm32g491xx_gpio_driver.c
+│        ├── stm32g491xx_uart_driver.c
+│        ├── stm32g491xx_spi_driver.c
+│        └── stm32g491xx_i2c_driver.c
 ├── Inc/
-│   ├── gpio.h
-│   ├── uart.h
-│   ├── spi.h
-│   └── i2c.h
+│   ├──
+│
+│   
+│   
 │
 ├── Src/
-│   ├── gpio.c
-│   ├── uart.c
-│   ├── spi.c
-│   └── i2c.c
+│   ├── main.c
+│   ├── syscalls.c
+│   ├── system.c
+│   
 │
 └── README.md
 ```
 
+## How to Start
+Include stm32g491xx.h file in project:
+
+For CubeIDE:
+
+Project-> Properties -> C/C++ Build -> Settings -> MCU GCC COMPILER -> Include Paths: in Include Paths(-I) add -> File system... and choose: \\stm32g4xx_drivers\drivers\Inc\stm32g491xx.h -> Open -> Ok -> Apply and Close 
+
+Try to build project to see if there are no errors.
 ## GPIO
 
 The GPIO driver provides:
 
 * GPIO pin initialization
-* Input and output configuration
+* PinSpeed
 * Reading GPIO pin state
 * Setting and clearing GPIO pins
 * Pull-up and pull-down configuration
 * GPIO mode configuration
+* GPIO Interrupt mode
 
 ## UART
 
@@ -99,8 +121,8 @@ The main objective is to understand how STM32 peripherals work by interacting di
 
 ## Development Environment
 
+* **CachyOS**
 * **STM32CubeIDE**
-* **STM32CubeMX**
 * **ARM GCC**
 * **ST-LINK**
 * **Git**
