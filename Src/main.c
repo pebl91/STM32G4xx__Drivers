@@ -15,7 +15,7 @@
  *
  ******************************************************************************
  */
-
+#include <stm32g491xx.h>
 #include <stdint.h>
 
 #if !defined(__SOFT_FP__) && defined(__ARM_FP)
@@ -24,6 +24,9 @@
 
 int main(void)
 {
+	GPIOA_PCLK_EN();
+	GPIOB_PCLK_EN();
+	GPIOA_PCLK_DI();
     /* Loop forever */
 	for(;;);
 }
