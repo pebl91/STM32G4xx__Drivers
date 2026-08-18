@@ -289,4 +289,7 @@ typedef struct
 #define GPIO_PIN_SET 			SET
 #define GPIO_PIN_RESET 			RESET
 
+
+#include "stm32g491xx_gpio_driver.h"
+
 #endif /* INC_STM32G491XX_H_ */
