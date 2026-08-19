@@ -90,6 +90,11 @@
  * Please check your Device RM
  */
 
+
+/*
+ * peripheral register definition structure for GPIO
+ */
+
 typedef struct
 {
 	__vo uint32_t MODER;			/* GPIO port mode register									Address offset: 0x00	*/
@@ -104,6 +109,11 @@ typedef struct
 	__vo uint32_t BRR;				/* GPIO port bit reset register								Address offset: 0x28	*/
 
 }GPIO_RegDef_t;
+
+
+/*
+ * peripheral register definition structure for RCC
+ */
 
 typedef struct
 {
@@ -147,6 +157,46 @@ typedef struct
 
 }RCC_RegDef_t;
 
+
+/*
+ * peripheral register definition structure for EXTI
+ */
+
+typedef struct
+{
+	__vo uint32_t IMR1;				/* Interrupt mask register 1								Address offset: 0x00	*/
+	__vo uint32_t EMR1;				/* Event mask register 1									Address offset: 0x04	*/
+	__vo uint32_t RTSR1;			/* Rising trigger selection register 1 						Address offset: 0x08	*/
+	__vo uint32_t FTSR1;			/* Falling trigger selection register 1 					Address offset: 0x0C	*/
+	__vo uint32_t SWIER1;			/* Software interrupt event register 1 						Address offset: 0x10	*/
+	__vo uint32_t PR1;				/* Pending register 1  										Address offset: 0x14	*/
+	uint32_t 	  RESERVED1[2];		/* Reserved													Address offset: 0x18, 0x1C	*/
+	__vo uint32_t IMR2;				/* Interrupt mask register 2 								Address offset: 0x20	*/
+	__vo uint32_t EMR2;				/* Event mask register 2									Address offset: 0x24	*/
+	__vo uint32_t RTSR2;			/* Rising trigger selection register 2						Address offset: 0x28	*/
+	__vo uint32_t FTSR2;			/* Falling trigger selection register 2						Address offset: 0x2C	*/
+	__vo uint32_t SWIER2;			/* Software interrupt event register 2						Address offset: 0x30	*/
+	__vo uint32_t PR2;				/* Pending register 2 										Address offset: 0x34	*/
+
+}EXTI_RegDef_t;
+
+
+/*
+ * peripheral register definition structure for SYSCFG
+ */
+
+typedef struct
+{
+	__vo uint32_t MEMRMP;			/* SYSCFG memory remap register 							Address offset: 0x00	*/
+	__vo uint32_t CFGR1;			/* SYSCFG configuration register 1							Address offset: 0x04	*/
+	__vo uint32_t EXTICR[4];		/* SYSCFG external interrupt configuration register: [0]=1, [1]=2, [2]=3, [3]=4  						Address offset: 0x08; 0x0C; 0x1; 0x14	*/
+	__vo uint32_t SCSR;				/* SYSCFG CCM SRAM control and status register				Address offset: 0x18	*/
+	__vo uint32_t CFGR2;			/* SYSCFG configuration register 2 							Address offset: 0x1C	*/
+	__vo uint32_t SWPR;				/* SYSCFG CCM SRAM write protection register 				Address offset: 0x20	*/
+	__vo uint32_t SKR;				/* SYSCFG CCM SRAM key register								Address offset: 0x24	*/
+
+}SYSCFG_RegDef_t;
+
 /*
  * peripheral definitions (Peripheral base addresses typecasted to xxx_RegDef_t)
  */
@@ -161,6 +211,9 @@ typedef struct
 
 #define RCC		((RCC_RegDef_t*)RCC_BASEADDR)
 
+#define EXTI	((EXTI_RegDef_t*)EXTI_BASEADDR)
+
+#define SYSCFG	((SYSCFG_RegDef_t*)SYSCFG_BASEADDR)
 
 /*
  * Clock Enable Macros for GPIOx peripherals
@@ -279,6 +332,29 @@ typedef struct
 #define GPIOF_REG_RESET()				do{ (RCC->AHB2RSTR |= ( 1 << 5));	(RCC->AHB2RSTR &= ~( 1 << 5)); }while(0)
 #define GPIOG_REG_RESET()				do{ (RCC->AHB2RSTR |= ( 1 << 6));	(RCC->AHB2RSTR &= ~( 1 << 6)); }while(0)
 
+/*
+ * Macro for setting GPIOx Port for EXTI
+ */
+
+#define GPIO_BASEADDR_TO_CODE(x)	( (x == GPIOA) ? 0 :\
+									  (x == GPIOB) ? 1 :\
+									  (x == GPIOC) ? 2 :\
+									  (x == GPIOD) ? 3 :\
+									  (x == GPIOE) ? 4 :\
+									  (x == GPIOF) ? 5 :\
+									  (x == GPIOG) ? 6 :0 )
+
+/*
+ * IRQ(Interrupt Request) Number of STM32G491x MCU
+ */
+
+#define IRQ_NO_EXTI0			6
+#define IRQ_NO_EXTI1			7
+#define IRQ_NO_EXTI2			8
+#define IRQ_NO_EXTI3			9
+#define IRQ_NO_EXTI4			10
+#define IRQ_NO_EXTI9_5			23
+#define IRQ_NO_EXTI15_10		40
 
 // some generic macros
 
@@ -288,6 +364,7 @@ typedef struct
 #define RESET 					DISABLE
 #define GPIO_PIN_SET 			SET
 #define GPIO_PIN_RESET 			RESET
+
 
 
 #include "stm32g491xx_gpio_driver.h"
